@@ -25,10 +25,15 @@
         <a href="#">upgrade your browser</a> to improve your experience.
       </p>
     <![endif]-->
+    <header>
+        <p> Open <a href="./minjeongkim-resume.pdf">Resume</a></p>
+    </header>
     <main>
         <canvas id="my-canvas"></canvas>
+        <div id="err-msg"></div>
         <script>
-            pdfjsLib.getDocument("./minjeongkim-resume.pdf").then(doc=>{
+            let loadingTask = pdfjsLib.getDocument("./minjeongkim-resume.pdf");
+            loadingTask.promise.then(doc=>{
                 doc.getPage(1).then(page=>{
                     const canvas = document.getElementById("my-canvas");
                     const context = canvas.getContext("2d");
@@ -40,6 +45,10 @@
                         viewport: viewport
                     });
                 });                
+            })
+            .catch(err=>{
+                const div = document.getElementById("err-msg");
+                div.innerText = "Oops! unable to render a pdf file due to error";
             });
         </script>
     </main>
