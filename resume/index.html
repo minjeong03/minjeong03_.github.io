@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+  <!--<![endif]-->
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Minjeong Kim Resume</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.2.228/build/pdf.min.js"></script>
+  </head>
+  <body>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="#">upgrade your browser</a> to improve your experience.
+      </p>
+    <![endif]-->
+    <main>
+        <canvas id="my-canvas"></canvas>
+        <script>
+            pdfjsLib.getDocument("./minjeongkim-resume.pdf").then(doc=>{
+                doc.getPage(1).then(page=>{
+                    const canvas = document.getElementById("my-canvas");
+                    const context = canvas.getContext("2d");
+                    const viewport = page.getViewport(1);
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+                    page.render({
+                        canvasContext: context,
+                        viewport: viewport
+                    });
+                });                
+            });
+        </script>
+    </main>
+  </body>
+</html>
